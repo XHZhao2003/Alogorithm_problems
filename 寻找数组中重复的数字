@@ -1,0 +1,26 @@
+/*
+    LeetCode 寻找数组中重复的数字
+    长度为n的整数数组，元素取值为0 - n-1，已知有元素重复，O(n)时间找出一个重复的元素。
+    很直接而巧妙的思路：如果没有重复，那么可以把元素排列成恰好 nums[i]==i。
+    例如nums = [2, 3, 1, 3, 4]。依次遍历即可。
+    2的位置不对，应该与nums[2]对换：[1, 3, 2, 3, 4]
+    1的位置不对，应该与nums[1]对换：[3, 1, 2, 3, 4]
+    3的位置不对，而发现nums[3]上已经出现了3，输出重复元素即可。
+    因为每个数字至多被swap一次，至多被比较一次，所以总复杂度是O(n)的。
+*/
+
+class Solution {
+public:
+    int findRepeatNumber(vector<int>& nums) {
+        int length = nums.size();
+        for(int i = 0; i < length; i++){
+            while(nums[i] != i){
+                if(nums[nums[i]] == nums[i]){
+                    return nums[i];
+                }
+                swap(nums[i], nums[nums[i]]);
+            }
+        }
+        return -1;
+    }
+};
